@@ -21,9 +21,13 @@ import com.piashcse.wpark.utils.network.DataState
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+/**
+ * HomeFragment for showing japanese main cities and popular in list
+ */
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
-    private lateinit var binding: FragmentHomeBinding
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = requireNotNull(_binding)
     private val homeViewModel: HomeViewModel by viewModels()
     private val cityAdapter: CityAdapter by lazy {
         CityAdapter()
@@ -43,7 +47,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 

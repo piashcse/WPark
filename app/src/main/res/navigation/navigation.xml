@@ -8,11 +8,9 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.piashcse.wpark.ui.HomeFragment"
-        android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.piashcse.wpark.ui.DetailFragment"
-        android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" />
 </navigation>

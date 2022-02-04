@@ -19,7 +19,8 @@ import com.piashcse.wpark.utils.fromPrettyJson
 import com.piashcse.wpark.utils.loadImage
 
 class DetailFragment : Fragment() {
-    private lateinit var binding: FragmentDetailBinding
+    private var _binding: FragmentDetailBinding? = null
+    private val binding get() = requireNotNull(_binding)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +37,7 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -68,4 +69,10 @@ class DetailFragment : Fragment() {
             }
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }
