@@ -2,7 +2,8 @@
 ### _An android app for Japanese main cities and foods_
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
-![Alt Text](https://github.com/piashcse/WPark/blob/main/wpark.gif)
+
+<img  alt="GIF"  width="230px" height="430px" src="https://github.com/piashcse/WPark/blob/main/wpark.gif" />
 
 
 ## Features
