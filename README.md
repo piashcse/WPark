@@ -1,5 +1,5 @@
 # WealthPark 
-### _An android app for Japanese main place and food_
+### _An android app for Japanese main cities and foods_
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 ![Alt Text](https://github.com/piashcse/WPark/blob/main/wpark.gif)
