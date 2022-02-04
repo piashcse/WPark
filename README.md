@@ -9,7 +9,8 @@
 
 - MVVM design pattern with Hilt dependency injection 
 - Navigation component with single activity architecture 
-- ViewBinding and databinding 
+- ViewBinding and databinding
+- Coroutine and Coroutine flow   
 - Room database for data persistency in offline mode
 - Unit testing 
 - Instrument testing for room db

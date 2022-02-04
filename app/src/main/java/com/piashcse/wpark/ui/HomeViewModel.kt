@@ -34,6 +34,9 @@ class HomeViewModel @Inject constructor(
     val cityResponse: LiveData<DataState<List<CityItem>>>
         get() = _cityResponse
 
+    /**
+     * Single call for getting cities data from [DatabaseRepository]
+     */
     fun cities() {
         viewModelScope.launch(Dispatchers.IO) {
             repo.cities().onEach {
@@ -42,6 +45,9 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Single call for getting foods data from [DatabaseRepository]
+     */
     fun foods() {
         viewModelScope.launch(Dispatchers.IO) {
             repo.foods().onEach {
@@ -50,6 +56,12 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Getting city and food data from rest api and zip it to get the result at a time
+     * and persist data in local room db
+     * check network availability if not available serve data from room db
+     * Data is accessed from a two common repository [RemoteRepository] for remote and [DatabaseRepository] for local database
+     */
     fun cityAndFood() {
         if (isConnected(applicationContext)) {
             viewModelScope.launch {
@@ -75,6 +87,10 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Clear all the data in city and food column before adding
+     * data from remote server
+     */
     private suspend fun dbClearAndInsertion() {
         db.clearAllCities()
         db.clearAllFoods()

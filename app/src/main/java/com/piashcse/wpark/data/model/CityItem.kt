@@ -4,8 +4,11 @@ package com.piashcse.wpark.data.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import java.util.*
 
+/**
+ * CityItem data class for remote api
+ * City Item Entity for room db
+ */
 @Entity
 data class CityItem(
     @PrimaryKey(autoGenerate = true) var id: Int = 0,

@@ -28,7 +28,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         internetConnection()
     }
-
+    /**
+     * Monitor internet connection if not showing snackBar for better
+     * user experience
+     */
     private fun internetConnection() {
         NetworkXProvider.isInternetConnectedLiveData.observe(this) { status ->
             status?.let {

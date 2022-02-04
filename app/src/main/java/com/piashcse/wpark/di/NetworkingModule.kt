@@ -16,19 +16,27 @@ import java.util.concurrent.TimeUnit
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkingModule {
-
+    /**
+     * Provides BaseUrl as string
+     */
     @Provides
     fun provideBaseURL(): String {
         return ApiURL.BASE_URL
     }
 
+    /**
+     * Provides LoggingInterceptor for api information
+     */
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
+    /**
+     * Provides custom OkkHttp
+     */
     @Provides
-    fun provideOkHttpClient( loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         val okHttpClient = OkHttpClient().newBuilder()
 
         okHttpClient.callTimeout(40, TimeUnit.SECONDS)
@@ -40,13 +48,23 @@ object NetworkingModule {
         return okHttpClient.build()
     }
 
+    /**
+     * Provides converter factory for retrofit
+     */
     @Provides
     fun provideConverterFactory(): Converter.Factory {
         return GsonConverterFactory.create()
     }
 
+    /**
+     * Provides ApiServices client for Retrofit
+     */
     @Provides
-    fun provideRetrofitClient(baseUrl: String, okHttpClient: OkHttpClient, converterFactory: Converter.Factory): Retrofit{
+    fun provideRetrofitClient(
+        baseUrl: String,
+        okHttpClient: OkHttpClient,
+        converterFactory: Converter.Factory
+    ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(okHttpClient)
@@ -54,6 +72,9 @@ object NetworkingModule {
             .build()
     }
 
+    /**
+     * Provides Api Service using retrofit
+     */
     @Provides
     fun provideRestApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)

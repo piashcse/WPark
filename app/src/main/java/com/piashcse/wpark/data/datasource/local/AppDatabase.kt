@@ -7,6 +7,10 @@ import com.piashcse.wpark.data.datasource.local.dao.FoodDao
 import com.piashcse.wpark.data.model.CityItem
 import com.piashcse.wpark.data.model.FoodItem
 
+/**
+ * App Database
+ * Define all entities and access doa's here/ Each entity is a table.
+ */
 @Database(
     entities = [CityItem::class, FoodItem::class],
     version = 1,

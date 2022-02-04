@@ -10,6 +10,10 @@ import java.lang.Exception
 import javax.inject.Inject
 
 class RemoteRepository @Inject constructor(private val apiService: ApiService) {
+    /**
+     * Cities api call using coroutine flow and emit loading, success and error state
+     * @see [ApiService]
+     */
     suspend fun cities(): Flow<DataState<List<CityItem>>> = flow {
         emit(DataState.Loading)
         try {
@@ -20,6 +24,10 @@ class RemoteRepository @Inject constructor(private val apiService: ApiService) {
         }
     }
 
+    /**
+     * Foods api call using coroutine flow and emit loading, success and error state
+     * @see [ApiService]
+     */
     suspend fun foods(): Flow<DataState<List<FoodItem>>> = flow {
         emit(DataState.Loading)
         try {

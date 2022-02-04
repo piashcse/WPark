@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.transition.MaterialSharedAxis
 import com.piashcse.wpark.R
 import com.piashcse.wpark.databinding.FragmentHomeBinding
 import com.piashcse.wpark.ui.adapter.CityAdapter
@@ -29,10 +32,16 @@ class HomeFragment : Fragment() {
         FoodAdapter()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initAnimation()
+        homeViewModel.cityAndFood()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -40,12 +49,19 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
         initView()
         apiResponse()
     }
 
+    /**
+     * Init all view and bind recyclerview
+     * Implemented adapter click event
+     * @see[CityAdapter]
+     * @see[FoodAdapter]
+     */
     private fun initView() {
-        homeViewModel.cityAndFood()
         binding.apply {
             swipeToRefresh.setOnRefreshListener {
                 binding.swipeToRefresh.isRefreshing = false
@@ -61,26 +77,37 @@ class HomeFragment : Fragment() {
             }
         }
 
-        cityAdapter.onItemClick = {
+        cityAdapter.onItemClick = { item, imageView ->
+            val extras = FragmentNavigatorExtras(
+                imageView to resources.getString(R.string.item_detail_image_transition_name)
+            )
             findNavController().navigate(
                 R.id.detailFragment,
                 bundleOf(
-                    AppConstants.DATA_TRANSFER to it.toPrettyJson(),
+                    AppConstants.DATA_TRANSFER to item.toPrettyJson(),
                     AppConstants.IS_CITY to true
-                )
+                ), null, extras
             )
         }
-        foodAdapter.onItemClick = {
+        foodAdapter.onItemClick = { item, imageView ->
+            val extras = FragmentNavigatorExtras(
+                imageView to resources.getString(R.string.item_detail_image_transition_name)
+            )
             findNavController().navigate(
                 R.id.detailFragment,
                 bundleOf(
-                    AppConstants.DATA_TRANSFER to it.toPrettyJson(),
+                    AppConstants.DATA_TRANSFER to item.toPrettyJson(),
                     AppConstants.IS_CITY to false
-                )
+                ),
+                null, extras
             )
         }
     }
 
+    /**
+     * Api response for food and city
+     * after trigger the livedata
+     */
     private fun apiResponse() {
         homeViewModel.foodResponse.observe(viewLifecycleOwner) {
             when (it) {
@@ -115,5 +142,10 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun initAnimation() {
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
     }
 }

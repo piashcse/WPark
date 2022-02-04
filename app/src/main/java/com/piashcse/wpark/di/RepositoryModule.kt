@@ -13,11 +13,17 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
+    /**
+     * Provides RemoteDataRepository for access api service method
+     */
     @Provides
-    fun provideDataRepository(apiService: ApiService): RemoteRepository {
+    fun provideRemoteDataRepository(apiService: ApiService): RemoteRepository {
         return RemoteRepository(apiService)
     }
 
+    /**
+     * Provides DataBaseRepository for access room database basic methos
+     */
     @Provides
     fun provideDataBaseRepository(cityDB: CityDao, foodDB: FoodDao): DatabaseRepository {
         return DatabaseRepository(cityDB, foodDB)

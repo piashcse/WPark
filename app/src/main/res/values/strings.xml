@@ -9,4 +9,7 @@
     <string name="description">description</string>
     <string name="ok">OK</string>
     <string name="error">Error</string>
+    <string name="item_image_transition_name">item_image_transition_name_%d</string>
+    <string name="item_detail_image_transition_name">item_detail_icon_transition_name</string>
+
 </resources>
