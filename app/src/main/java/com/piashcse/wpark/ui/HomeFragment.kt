@@ -152,4 +152,8 @@ class HomeFragment : Fragment() {
         exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
